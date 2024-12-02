@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="912.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommendation.Mainpage">
+   <children>
+      <StackPane layoutX="186.0" prefHeight="567.0" prefWidth="726.0">
+         <children>
+            <Pane fx:id="userprofilepane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Pane layoutX="132.0" layoutY="96.0" prefHeight="341.0" prefWidth="464.0" style="-fx-background-color: #e1ecf0; -fx-background-radius: 20;">
+                     <children>
+                        <Label fx:id="categoriesuser" alignment="CENTER" layoutX="122.0" layoutY="190.0" prefHeight="27.0" prefWidth="331.0" text="Label" />
+                        <Button fx:id="usereditbtn" layoutX="388.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleButtonActions" text="Edit" />
+                     </children>
+                  </Pane>
+                  <Text layoutX="269.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PROFILE">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font>
+                  </Text>
+                  <Label layoutX="149.0" layoutY="138.0" text="Full Name :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="149.0" layoutY="188.0" text="Age :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="149.0" layoutY="244.0" text="E-Mail :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="149.0" layoutY="296.0" text="Categories :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="mainusername" alignment="CENTER" layoutX="253.0" layoutY="133.0" prefHeight="27.0" prefWidth="331.0" text="Label" />
+                  <Label fx:id="mainuserage" alignment="CENTER" layoutX="253.0" layoutY="185.0" prefHeight="27.0" prefWidth="331.0" text="Label" />
+                  <Label fx:id="mainuseremail" alignment="CENTER" layoutX="253.0" layoutY="244.0" prefHeight="27.0" prefWidth="331.0" text="Label" />
+                  <Button fx:id="userprofilebckbtn" layoutX="14.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleButtonActions" text="Back">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane fx:id="userhomepagepane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" stylesheets="@Style.css">
+               <children>
+                  <Label layoutX="223.0" layoutY="27.0" text="Home Page">
+                     <font>
+                        <Font name="Poppins Bold" size="48.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="usereditpane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Label layoutX="219.0" layoutY="22.0" text="Edit Your Profile">
+                     <font>
+                        <Font name="Poppins Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="usereditbckbtn" layoutX="24.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleButtonActions" prefHeight="42.0" prefWidth="73.0" text="Back" />
+                  <TextField fx:id="usereditname" layoutX="174.0" layoutY="101.0" prefHeight="30.0" prefWidth="404.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="usereditage" layoutX="174.0" layoutY="159.0" prefHeight="30.0" prefWidth="404.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="usereditemail" layoutX="174.0" layoutY="213.0" prefHeight="30.0" prefWidth="404.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="usercurrentpwedit" layoutX="174.0" layoutY="275.0" prefHeight="30.0" prefWidth="404.0" style="-fx-background-radius: 20;" />
+                  <Label layoutX="146.0" layoutY="81.0" text="Full Name :">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="146.0" layoutY="132.0" text="Age :">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="146.0" layoutY="193.0" text="E-Mail :">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="146.0" layoutY="255.0" text="Current Password :">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="usernewpwedit" layoutX="174.0" layoutY="341.0" prefHeight="30.0" prefWidth="404.0" style="-fx-background-radius: 20;" />
+                  <Label layoutX="146.0" layoutY="321.0" text="New Password :">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <CheckBox fx:id="editworldnewsbox" layoutX="175.0" layoutY="404.0" mnemonicParsing="false" text="World News" />
+                  <CheckBox fx:id="edittechnologybox" layoutX="303.0" layoutY="404.0" mnemonicParsing="false" text="Technology" />
+                  <CheckBox fx:id="edithealthbox" layoutX="412.0" layoutY="404.0" mnemonicParsing="false" text="Health &amp; Science" />
+                  <CheckBox fx:id="editentertainmentbox" layoutX="175.0" layoutY="444.0" mnemonicParsing="false" text="Entertainment" />
+                  <CheckBox fx:id="editsportbox" layoutX="303.0" layoutY="444.0" mnemonicParsing="false" text="Sports" />
+                  <CheckBox fx:id="editbuisnessbox" layoutX="412.0" layoutY="444.0" mnemonicParsing="false" text="Business &amp; Finance" />
+                  <Label layoutX="146.0" layoutY="377.0" text="Select Your Categories :">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="usersavebtn" layoutX="332.0" layoutY="501.0" mnemonicParsing="false" onAction="#handleConfirmEditButtonClick" text="Save">
+                     <font>
+                        <Font name="Poppins Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane fx:id="allarticlespane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Label layoutX="264.0" layoutY="23.0" text="All Articles">
+                     <font>
+                        <Font name="Poppins Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="allarticlesbckbtn" layoutX="14.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleButtonActions" prefHeight="20.0" prefWidth="73.0" text="Back" />
+                  <TableView fx:id="allarticlestable" layoutX="12.0" layoutY="113.0" prefHeight="401.0" prefWidth="704.0">
+                    <columns>
+                      <TableColumn fx:id="articlestitle" prefWidth="703.1999969482422" text="Articles Title" />
+                    </columns>
+                  </TableView>
+                  <Button layoutX="313.0" layoutY="522.0" mnemonicParsing="false" onAction="#onViewButtonClicked" prefHeight="20.0" prefWidth="84.0" text="View" />
+               </children>
+            </Pane>
+            <Pane fx:id="userrecommendedpane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Label layoutX="174.0" layoutY="26.0" text="Recommended">
+                     <font>
+                        <Font name="Poppins Bold" size="48.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="userrecommendbckbtn" layoutX="14.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleButtonActions" text="Back">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <TableView fx:id="recommendedtable" layoutX="15.0" layoutY="111.0" prefHeight="392.0" prefWidth="698.0">
+                    <columns>
+                      <TableColumn fx:id="rectitle" prefWidth="479.99998474121094" text="Article Title" />
+                      <TableColumn fx:id="reccategory" prefWidth="217.5999755859375" text="Category" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="refreshrecobtn" layoutX="322.0" layoutY="516.0" mnemonicParsing="false" onAction="#Recommended" text="Refresh" />
+               </children>
+            </Pane>
+            <Pane fx:id="savedarticlespane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Label layoutX="230.0" layoutY="14.0" text="Saved Articles">
+                     <font>
+                        <Font name="Poppins Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="savedarticlestable" layoutX="13.0" layoutY="66.0" prefHeight="433.0" prefWidth="704.0">
+                    <columns>
+                      <TableColumn fx:id="savtitle" prefWidth="469.6000213623047" text="Article title" />
+                      <TableColumn fx:id="savcategory" prefWidth="233.59991455078125" text="Category" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="refreshsavedbtn" layoutX="323.0" layoutY="510.0" mnemonicParsing="false" onAction="#saved" text="Refresh" />
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+      <Pane prefHeight="567.0" prefWidth="186.0" style="-fx-background-color: #97d9f1;" stylesheets="@Style.css">
+         <children>
+            <Button fx:id="userhomepagebtn" layoutX="9.0" layoutY="115.0" mnemonicParsing="false" onAction="#handleButtonActions" prefHeight="38.0" prefWidth="168.0" stylesheets="@Style.css" text="Homepage">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="yourprofilebtn" layoutX="9.0" layoutY="167.0" mnemonicParsing="false" onAction="#handleButtonActions" prefHeight="38.0" prefWidth="168.0" stylesheets="@Style.css" text="My Profile">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="recommendedbtn" layoutX="9.0" layoutY="221.0" mnemonicParsing="false" onAction="#handleButtonActions" prefHeight="38.0" prefWidth="168.0" text="Recommended">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="allarticlesbtn" layoutX="9.0" layoutY="276.0" mnemonicParsing="false" onAction="#handleButtonActions" prefHeight="38.0" prefWidth="168.0" text="All Articles">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="savedarticlesbtn" layoutX="9.0" layoutY="328.0" mnemonicParsing="false" onAction="#handleButtonActions" prefHeight="38.0" prefWidth="168.0" text="Saved Articles">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="userlogoutbtn" layoutX="50.0" layoutY="513.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" prefHeight="40.0" prefWidth="87.0" style="-fx-background-radius: 20;" styleClass="logout-button" stylesheets="@Style.css" text="Log Out">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Text fill="WHITE" layoutX="19.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="News Wise" wrappingWidth="149.39999389648443">
+               <font>
+                  <Font name="Poppins Bold" size="27.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

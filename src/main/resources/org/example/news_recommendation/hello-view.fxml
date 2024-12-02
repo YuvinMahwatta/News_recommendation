@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,37 +9,182 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="997.0" style="-fx-background-color: #e6e6e6;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommendation.HelloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="912.0" style="-fx-background-color: #e6e6e6;" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommendation.HelloController">
    <children>
-      <StackPane layoutX="359.0" prefHeight="622.0" prefWidth="638.0">
+      <StackPane layoutX="271.0" prefHeight="567.0" prefWidth="645.0">
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: White;">
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" />
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" />
+            <Pane fx:id="userloginpane" layoutX="10.0" layoutY="10.0" prefHeight="567.0" prefWidth="654.0" style="-fx-background-color: White;">
                <children>
-                  <Pane layoutX="44.0" layoutY="72.0" prefHeight="447.0" prefWidth="550.0" style="-fx-background-color: #d7d9db; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.2, 2, 2);;">
-                     <children>
-                        <TextField fx:id="usertextfield" alignment="CENTER" layoutX="160.0" layoutY="95.0" prefHeight="50.0" prefWidth="230.0" promptText="User Name" style="-fx-background-radius: 20;" />
-                        <TextField fx:id="passwordtextfield" alignment="CENTER" layoutX="160.0" layoutY="209.0" prefHeight="50.0" prefWidth="230.0" promptText="Password" style="-fx-background-radius: 20;" />
-                        <Button layoutX="224.0" layoutY="376.0" mnemonicParsing="false" onAction="#handlesignin" prefHeight="36.0" prefWidth="102.0" style="-fx-background-radius: 20;" text="Sign In ">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="100.0" layoutY="8.0" prefHeight="67.0" prefWidth="350.0" text="Sign In" textAlignment="CENTER" textFill="#10111b">
-                           <font>
-                              <Font name="Poppins Regular" size="36.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
+                  <Button fx:id="createuserbtn" layoutX="206.0" layoutY="439.0" mnemonicParsing="false" onAction="#PaneNav" prefHeight="50.0" prefWidth="230.0" style="-fx-background-radius: 20;" text="Create User Account" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="148.0" layoutY="14.0" prefHeight="67.0" prefWidth="350.0" text="Log In" textAlignment="CENTER" textFill="#10111b">
+                     <font>
+                        <Font name="Poppins SemiBold" size="48.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="userusername" alignment="CENTER" layoutX="190.0" layoutY="146.0" prefHeight="43.0" prefWidth="261.0" promptText="User Name" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="userpassword" alignment="CENTER" layoutX="190.0" layoutY="256.0" prefHeight="43.0" prefWidth="261.0" promptText="Password" style="-fx-background-radius: 20;" />
+                  <Button fx:id="userloginbtn" contentDisplay="CENTER" layoutX="270.0" layoutY="332.0" mnemonicParsing="false" onAction="#handlesignin" prefHeight="36.0" prefWidth="102.0" style="-fx-background-radius: 20;" text="Log In" textAlignment="JUSTIFY">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="313.0" layoutY="394.0" text="Or">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="106.0" layoutY="111.0" prefHeight="27.0" prefWidth="174.0" text="UserName">
+                     <font>
+                        <Font name="Poppins Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="148.0" layoutY="220.0" text="Password">
+                     <font>
+                        <Font name="Poppins Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="userloginbackbtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#PaneNav" style="-fx-background-radius: 20;" text="Back">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: yellow;">
+            <Pane fx:id="adminloginpane" prefHeight="567.0" prefWidth="654.0" style="-fx-background-color: White;">
                <children>
-                  <Pane layoutX="78.0" layoutY="77.0" prefHeight="463.0" prefWidth="494.0" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="148.0" layoutY="14.0" prefHeight="67.0" prefWidth="350.0" text="Log In" textAlignment="CENTER" textFill="#10111b">
+                     <font>
+                        <Font name="Poppins SemiBold" size="48.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="adminusername" alignment="CENTER" layoutX="190.0" layoutY="146.0" prefHeight="43.0" prefWidth="261.0" promptText="User Name" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="adminpassword" alignment="CENTER" layoutX="190.0" layoutY="256.0" prefHeight="43.0" prefWidth="261.0" promptText="Password" style="-fx-background-radius: 20;" />
+                  <Button fx:id="adminloginbtn" contentDisplay="CENTER" layoutX="270.0" layoutY="358.0" mnemonicParsing="false" onAction="#loginAsAdmin" prefHeight="36.0" prefWidth="102.0" style="-fx-background-radius: 20;" text="Log In" textAlignment="JUSTIFY">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Label alignment="CENTER" layoutX="106.0" layoutY="111.0" prefHeight="27.0" prefWidth="174.0" text="UserName">
+                     <font>
+                        <Font name="Poppins Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="148.0" layoutY="220.0" text="Password">
+                     <font>
+                        <Font name="Poppins Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="adminoginbackbtn" layoutX="12.0" layoutY="18.0" mnemonicParsing="false" onAction="#PaneNav" style="-fx-background-radius: 20;" text="Back">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane fx:id="createuseraccountpane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Label layoutX="76.0" layoutY="6.0" text="Create New User Account">
+                     <font>
+                        <Font name="Poppins Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="userfullnameid" layoutX="92.0" layoutY="96.0" prefHeight="30.0" prefWidth="394.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="userageid" layoutX="92.0" layoutY="156.0" prefHeight="30.0" prefWidth="394.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="useremailid" layoutX="92.0" layoutY="213.0" prefHeight="30.0" prefWidth="394.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="usersignupusern" layoutX="92.0" layoutY="271.0" prefHeight="30.0" prefWidth="394.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="usersignuppassword" layoutX="92.0" layoutY="333.0" prefHeight="30.0" prefWidth="394.0" style="-fx-background-radius: 20;" />
+                  <Label layoutX="70.0" layoutY="76.0" text="Full Name :-">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="70.0" layoutY="128.0" text="Age :-">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="70.0" layoutY="186.0" text="E-Mail :-">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="70.0" layoutY="244.0" text="User Name :-">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="70.0" layoutY="306.0" text="Password :-">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="usersignupconfpassword" layoutX="92.0" layoutY="391.0" prefHeight="30.0" prefWidth="394.0" style="-fx-background-radius: 20;" />
+                  <Label layoutX="70.0" layoutY="364.0" text="Confirm Password :-">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="67.0" layoutY="425.0" text="Select Your Categories :-">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <CheckBox fx:id="worldnewsbox" layoutX="97.0" layoutY="454.0" mnemonicParsing="false" text="World News" />
+                  <CheckBox fx:id="technologybox" layoutX="209.0" layoutY="454.0" mnemonicParsing="false" text="Technology " />
+                  <CheckBox fx:id="healthbox" layoutX="310.0" layoutY="454.0" mnemonicParsing="false" text="Health &amp; Science" />
+                  <CheckBox fx:id="entertainmentbox" layoutX="97.0" layoutY="495.0" mnemonicParsing="false" text="Entertainment " />
+                  <CheckBox fx:id="sportbox" layoutX="209.0" layoutY="495.0" mnemonicParsing="false" text="Sports " />
+                  <CheckBox fx:id="buisnessbox" layoutX="310.0" layoutY="495.0" mnemonicParsing="false" text="Business &amp; Finance" />
+                  <Button fx:id="usersignupbtn" layoutX="529.0" layoutY="523.0" mnemonicParsing="false" onAction="#CreateUser" text="Sign Up">
+                     <font>
+                        <Font name="Poppins Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="creatuserbackbtn" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#PaneNav" text="Back">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane fx:id="openningpane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Label layoutX="131.0" layoutY="210.0" prefHeight="121.0" prefWidth="400.0" text="NewsWise">
+                     <font>
+                        <Font name="Poppins Bold Italic" size="72.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="237.0" layoutY="91.0" text="Welcome">
+                     <font>
+                        <Font name="Poppins Regular" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="311.0" layoutY="176.0" text="To">
+                     <font>
+                        <Font name="Poppins Regular" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="159.0" layoutY="321.0" text="&quot;Stay Smart, Stay Informed&quot;">
+                     <font>
+                        <Font name="Poppins Regular" size="24.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="loginuserbtn" layoutX="105.0" layoutY="483.0" mnemonicParsing="false" onAction="#PaneNav" prefHeight="43.0" prefWidth="156.0" style="-fx-background-radius: 20;" text="Login As User">
+                     <font>
+                        <Font name="Poppins Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="loginadminbtn" layoutX="421.0" layoutY="483.0" mnemonicParsing="false" onAction="#PaneNav" prefHeight="43.0" prefWidth="156.0" style="-fx-background-radius: 20;" text="Login As Admin">
+                     <font>
+                        <Font name="Poppins Bold" size="12.0" />
+                     </font>
+                  </Button>
                </children>
             </Pane>
          </children>
       </StackPane>
-      <Pane layoutX="-1.0" prefHeight="622.0" prefWidth="359.0" style="-fx-background-color: #97d9f1;" />
+      <Pane layoutX="-1.0" prefHeight="567.0" prefWidth="273.0" style="-fx-background-color: #97d9f1;" />
    </children>
 </AnchorPane>

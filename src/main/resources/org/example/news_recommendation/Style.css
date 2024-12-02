@@ -1,0 +1,41 @@
+/* styles.css */
+.button {
+    -fx-background-color: #97d9f1;
+    -fx-text-fill: #ffffff; /* White text for contrast */
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 5px;
+    -fx-padding: 8px 15px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #85c7e8; /* Slightly darker shade on hover */
+}
+
+.button:pressed {
+    -fx-background-color: #73b5d8; /* Even darker shade when pressed */
+    -fx-effect: none; /* Remove shadow when pressed */
+}
+
+/* logout-button.css */
+.logout-button {
+    -fx-background-color: #e74c3c; /* Red color */
+    -fx-text-fill: #ffffff; /* White text for contrast */
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+}
+
+.logout-button:hover {
+    -fx-background-color: #c0392b; /* Darker red on hover */
+}
+
+.logout-button:pressed {
+    -fx-background-color: #a93226; /* Even darker red when pressed */
+    -fx-effect: none;
+}
