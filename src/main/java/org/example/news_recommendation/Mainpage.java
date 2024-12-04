@@ -169,6 +169,7 @@ public class Mainpage implements Initializable {
         loadarticles2();
         Recommended();
         saved();
+
     }
 
 
@@ -346,10 +347,10 @@ public class Mainpage implements Initializable {
 
         // Collect preferences
         List<String> updatedPreferences = new ArrayList<>();
-        if (editbuisnessbox.isSelected()) updatedPreferences.add("Business");
+        if (editbuisnessbox.isSelected()) updatedPreferences.add("Business & Finance");
         if (editentertainmentbox.isSelected()) updatedPreferences.add("Entertainment");
-        if (edithealthbox.isSelected()) updatedPreferences.add("Health");
-        if (editsportbox.isSelected()) updatedPreferences.add("Sport");
+        if (edithealthbox.isSelected()) updatedPreferences.add("Health & Science");
+        if (editsportbox.isSelected()) updatedPreferences.add("Sports");
         if (edittechnologybox.isSelected()) updatedPreferences.add("Technology");
         if (editworldnewsbox.isSelected()) updatedPreferences.add("World News");
 
@@ -367,8 +368,36 @@ public class Mainpage implements Initializable {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             // Update the user document in MongoDB
             try {
-                MongoCollection<Document> collection = database.getCollection("Admin_full_Information");
+                MongoCollection<Document> collection = database.getCollection("User_full_details_table");
 
+                // Find the original preferences
+                Document query = new Document("username", currentUsername);
+                Document userDocument = collection.find(query).first();
+                List<String> originalPreferences = (List<String>) userDocument.get("interests");
+
+                // Calculate newly selected and deselected categories
+                List<String> newlySelected = new ArrayList<>(updatedPreferences);
+                newlySelected.removeAll(originalPreferences);
+
+                List<String> deselected = new ArrayList<>(originalPreferences);
+                deselected.removeAll(updatedPreferences);
+
+                // Update points for newly selected and deselected categories
+                MongoCollection<Document> Articlepointscollection = database.getCollection("Article_Points");
+                for (String category : newlySelected) {
+                    Articlepointscollection.updateOne(
+                            Filters.eq("username", currentUsername),
+                            Updates.inc(category, 10)
+                    );
+                }
+                for (String category : deselected) {
+                    Articlepointscollection.updateOne(
+                            Filters.eq("username", currentUsername),
+                            Updates.inc(category, -10)
+                    );
+                }
+
+                // Update user details
                 Document updateFields = new Document();
                 updateFields.put("fullname", fullName);
                 updateFields.put("age", age);
@@ -377,8 +406,6 @@ public class Mainpage implements Initializable {
                 updateFields.put("interests", updatedPreferences);
 
                 Document updateQuery = new Document("$set", updateFields);
-
-                Document query = new Document("username", currentUsername);
                 collection.updateOne(query, updateQuery);
 
                 // Show success message
@@ -410,7 +437,6 @@ public class Mainpage implements Initializable {
             usereditemail.setText(userDocument.getString("email"));
             usereditage.setText(String.valueOf(userDocument.getInteger("age")));
 
-
             // Reset all checkboxes
             editbuisnessbox.setSelected(false);
             editentertainmentbox.setSelected(false);
@@ -424,16 +450,16 @@ public class Mainpage implements Initializable {
             if (preferences != null) {
                 for (String preference : preferences) {
                     switch (preference.trim()) {
-                        case "Business":
+                        case "Business & Finance":
                             editbuisnessbox.setSelected(true);
                             break;
                         case "Entertainment":
                             editentertainmentbox.setSelected(true);
                             break;
-                        case "Health":
+                        case "Health & Science":
                             edithealthbox.setSelected(true);
                             break;
-                        case "Sport":
+                        case "Sports":
                             editsportbox.setSelected(true);
                             break;
                         case "Technology":
@@ -449,6 +475,7 @@ public class Mainpage implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Error", "User details could not be loaded.");
         }
     }
+
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
@@ -594,6 +621,7 @@ public class Mainpage implements Initializable {
             System.out.println("No saved articles found for user: " + currentUsername);
         }
     }
+
 
 
 

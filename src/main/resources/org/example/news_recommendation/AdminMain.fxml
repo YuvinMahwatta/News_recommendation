@@ -146,29 +146,6 @@
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="addnewspane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ebebeb;">
-               <children>
-                  <Label layoutX="203.0" layoutY="30.0" text="Add News Articles">
-                     <font>
-                        <Font name="Poppins Bold" size="36.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="articletitle" layoutX="182.0" layoutY="153.0" prefHeight="25.0" prefWidth="379.0" />
-                  <Label layoutX="165.0" layoutY="133.0" text="Article Title :">
-                     <font>
-                        <Font name="Poppins Regular" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="165.0" layoutY="256.0" text="Article Content :">
-                     <font>
-                        <Font name="Poppins Regular" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextArea fx:id="articlecontent" layoutX="182.0" layoutY="284.0" prefHeight="200.0" prefWidth="410.0" />
-                  <Button fx:id="addnewsbackbtn" layoutX="38.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleButtonActions2" prefHeight="42.0" prefWidth="73.0" text="Back" />
-                  <Button layoutX="339.0" layoutY="511.0" mnemonicParsing="false" onAction="#uploadnewsarticles" text="Upload " />
-               </children>
-            </Pane>
             <Pane fx:id="articledeletepane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                <children>
                   <Label layoutX="175.0" layoutY="14.0" text="Delete News Articles">
@@ -203,6 +180,29 @@
                      </font>
                   </Button>
                   <Button fx:id="newsmanagebckbtn" layoutX="14.0" layoutY="42.0" mnemonicParsing="false" text="Back" />
+               </children>
+            </Pane>
+            <Pane fx:id="addnewspane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ebebeb;">
+               <children>
+                  <Label layoutX="203.0" layoutY="30.0" text="Add News Articles">
+                     <font>
+                        <Font name="Poppins Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="articletitle" layoutX="182.0" layoutY="153.0" prefHeight="25.0" prefWidth="379.0" />
+                  <Label layoutX="165.0" layoutY="133.0" text="Article Title :">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="165.0" layoutY="256.0" text="Article Content :">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="articlecontent" layoutX="182.0" layoutY="284.0" prefHeight="200.0" prefWidth="410.0" />
+                  <Button fx:id="addnewsbackbtn" layoutX="38.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleButtonActions2" prefHeight="42.0" prefWidth="73.0" text="Back" />
+                  <Button layoutX="339.0" layoutY="511.0" mnemonicParsing="false" onAction="#uploadnewsarticles" text="Upload " />
                </children>
             </Pane>
          </children>

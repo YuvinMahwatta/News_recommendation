@@ -140,6 +140,22 @@
                   <Button layoutX="313.0" layoutY="522.0" mnemonicParsing="false" onAction="#onViewButtonClicked" prefHeight="20.0" prefWidth="84.0" text="View" />
                </children>
             </Pane>
+            <Pane fx:id="savedarticlespane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Label layoutX="230.0" layoutY="14.0" text="Saved Articles">
+                     <font>
+                        <Font name="Poppins Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="savedarticlestable" layoutX="13.0" layoutY="66.0" prefHeight="433.0" prefWidth="704.0">
+                    <columns>
+                      <TableColumn fx:id="savtitle" prefWidth="469.6000213623047" text="Article title" />
+                      <TableColumn fx:id="savcategory" prefWidth="233.59991455078125" text="Category" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="refreshsavedbtn" layoutX="323.0" layoutY="510.0" mnemonicParsing="false" onAction="#saved" text="Refresh" />
+               </children>
+            </Pane>
             <Pane fx:id="userrecommendedpane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                <children>
                   <Label layoutX="174.0" layoutY="26.0" text="Recommended">
@@ -158,23 +174,8 @@
                       <TableColumn fx:id="reccategory" prefWidth="217.5999755859375" text="Category" />
                     </columns>
                   </TableView>
-                  <Button fx:id="refreshrecobtn" layoutX="322.0" layoutY="516.0" mnemonicParsing="false" onAction="#Recommended" text="Refresh" />
-               </children>
-            </Pane>
-            <Pane fx:id="savedarticlespane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
-               <children>
-                  <Label layoutX="230.0" layoutY="14.0" text="Saved Articles">
-                     <font>
-                        <Font name="Poppins Bold" size="36.0" />
-                     </font>
-                  </Label>
-                  <TableView fx:id="savedarticlestable" layoutX="13.0" layoutY="66.0" prefHeight="433.0" prefWidth="704.0">
-                    <columns>
-                      <TableColumn fx:id="savtitle" prefWidth="469.6000213623047" text="Article title" />
-                      <TableColumn fx:id="savcategory" prefWidth="233.59991455078125" text="Category" />
-                    </columns>
-                  </TableView>
-                  <Button fx:id="refreshsavedbtn" layoutX="323.0" layoutY="510.0" mnemonicParsing="false" onAction="#saved" text="Refresh" />
+                  <Button fx:id="refreshrecobtn" layoutX="55.0" layoutY="516.0" mnemonicParsing="false" onAction="#Recommended" text="Refresh" />
+                  <Button fx:id="viewrecobtn" layoutX="587.0" layoutY="516.0" mnemonicParsing="false" text="View" />
                </children>
             </Pane>
          </children>
