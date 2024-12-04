@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class WebViewController implements Initializable {
@@ -118,14 +119,15 @@ public class WebViewController implements Initializable {
         }
     }
 
-    private void savearticlehandle(String choicetype,String articletitle) {
+    private void savearticlehandle(String choicetype, String articletitle) {
         MongoCollection<Document> savedarticlescollection = database.getCollection("Saved_Articles");
 
-        Document savedarticlesdoc = savedarticlescollection.find(Filters.eq("username",Username)).first();
+        // Find the saved articles document for the given username
+        Document savedarticlesdoc = savedarticlescollection.find(Filters.eq("username", Username)).first();
 
         if (savedarticlesdoc == null) {
-
-            savedarticlesdoc = new Document("username",Username)
+            // Create a new document if no record exists for the user
+            savedarticlesdoc = new Document("username", Username)
                     .append("saved", new ArrayList<String>())
                     .append("liked", new ArrayList<String>())
                     .append("disliked", new ArrayList<String>())
@@ -133,14 +135,25 @@ public class WebViewController implements Initializable {
             savedarticlescollection.insertOne(savedarticlesdoc);
         }
 
+        // Retrieve the current list of saved articles
+        List<String> savedArticles = savedarticlesdoc.getList("saved", String.class);
+
+        // Check if the article is already saved
+        if (savedArticles.contains(articletitle)) {
+            System.out.println("The article \"" + articletitle + "\" is already saved.");
+            return; // Exit the method if the article is already saved
+        }
+
+        // Add the article to the specified list (choicetype)
         savedarticlescollection.updateOne(
                 Filters.eq("username", Username),
-                Updates.addToSet(choicetype,articletitle)
+                Updates.addToSet(choicetype, articletitle) // Adds to the specified field, ensuring no duplicates in the field
         );
 
-        System.out.println("User" + Username + "" + choicetype + "the article" + articletitle);
+        System.out.println("User \"" + Username + "\" " + choicetype + " the article: \"" + articletitle + "\"");
     }
-@FXML
+
+    @FXML
     private void likehandle() {
         updatepoints(6);
         savearticlehandle("liked",articletitle);

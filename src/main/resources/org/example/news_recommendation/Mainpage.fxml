@@ -175,7 +175,7 @@
                     </columns>
                   </TableView>
                   <Button fx:id="refreshrecobtn" layoutX="55.0" layoutY="516.0" mnemonicParsing="false" onAction="#Recommended" text="Refresh" />
-                  <Button fx:id="viewrecobtn" layoutX="587.0" layoutY="516.0" mnemonicParsing="false" text="View" />
+                  <Button fx:id="viewrecobtn" layoutX="587.0" layoutY="516.0" mnemonicParsing="false" onAction="#ViewRecommendedArticles" text="View" />
                </children>
             </Pane>
          </children>

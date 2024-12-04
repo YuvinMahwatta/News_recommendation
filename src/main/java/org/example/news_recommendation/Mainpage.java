@@ -17,7 +17,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.bson.Document;
 import javafx.scene.web.WebView;
 import javafx.scene.web.WebEngine;
@@ -602,23 +604,83 @@ public class Mainpage implements Initializable {
         Document userSaved = SavedarticlesCollection.find(Filters.eq("username", currentUsername)).first();
 
         if (userSaved != null && userSaved.containsKey("saved")) {
-            // Retrieve the saved article titles
+            // Retrieve the saved article titles from the "saved" field
             List<String> savedTitles = userSaved.getList("saved", String.class);
 
-            // Find the articles in the articles collection that match the saved titles
-            List<Document> savedArticles = NewsArticleCollection.find(Filters.in("title", savedTitles)).into(new ArrayList<>());
+            if (savedTitles != null && !savedTitles.isEmpty()) {
+                // Fetch article details from the News_Articles collection using the saved titles
+                List<Document> savedArticles = NewsArticleCollection.find(Filters.in("title", savedTitles)).into(new ArrayList<>());
 
-            // Bind the data to the TableView
-            ObservableList<Document> userData = FXCollections.observableArrayList(savedArticles);
+                // Bind the fetched data to the TableView
+                ObservableList<Document> userData = FXCollections.observableArrayList(savedArticles);
 
-            savcategory.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getString("category")));
-            savtitle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getString("title")));
+                savcategory.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getString("category")));
+                savtitle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getString("title")));
 
-            savedarticlestable.setItems(userData);
+                savedarticlestable.setItems(userData);
+            } else {
+                // No saved titles found for the user
+                savedarticlestable.setItems(FXCollections.observableArrayList());
+                System.out.println("No saved articles found for user: " + currentUsername);
+            }
         } else {
-            // If no saved articles, clear the table and notify the user
+            // If no saved articles document exists for the user, clear the table
             savedarticlestable.setItems(FXCollections.observableArrayList());
             System.out.println("No saved articles found for user: " + currentUsername);
+        }
+    }
+
+
+    @FXML
+    private void ViewRecommendedArticles() {
+        Document selectedArticle = recommendedtable.getSelectionModel().getSelectedItem();
+        if (selectedArticle != null) {
+            String title = selectedArticle.getString("title");
+            String content = selectedArticle.getString("content");
+            String category = selectedArticle.getString("category"); // Assuming the article has a "category" field
+
+            // Load the WebView FXML
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Web.fxml"));
+                Parent root = loader.load();
+
+                // Get the controller of the WebView FXML
+                WebViewController controller = loader.getController();
+
+                // Pass the content and category to the Webdisplay controller
+                controller.displayContent(title, content, category);
+                updatepoints(category);
+
+                // Create the stage for the new window
+                Stage stage = new Stage();
+                stage.initStyle(StageStyle.UNDECORATED); // Remove default window borders
+
+                // Variables to store mouse coordinates for dragging
+                final double[] xOffset = {0};
+                final double[] yOffset = {0};
+
+                // Add mouse event handlers to enable dragging
+                root.setOnMousePressed(event -> {
+                    xOffset[0] = event.getSceneX();
+                    yOffset[0] = event.getSceneY();
+                });
+
+                root.setOnMouseDragged(event -> {
+                    stage.setX(event.getScreenX() - xOffset[0]);
+                    stage.setY(event.getScreenY() - yOffset[0]);
+                });
+
+                // Create a scene with the loaded FXML content and set it on the stage
+                Scene scene = new Scene(root);
+                scene.setFill(Color.TRANSPARENT); // Allow transparent styling
+                stage.setScene(scene);
+
+                // Display the stage
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

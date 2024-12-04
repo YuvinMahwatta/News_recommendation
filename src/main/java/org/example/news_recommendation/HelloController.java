@@ -174,7 +174,7 @@ public class HelloController implements Initializable {
             // Get the controller for the Mainpage
             Mainpage mainPageController = loader.getController();
 
-            Mainpage.setCurrentUsername(username);
+            mainPageController.setCurrentUsername(username);
             // Set up the new scene
             Stage stage = (Stage) userloginbtn.getScene().getWindow();
             stage.setScene(new Scene(signUpRoot));
@@ -380,7 +380,7 @@ public class HelloController implements Initializable {
         // Check each checkbox and add the corresponding word to the list if selected
         if (buisnessbox.isSelected()) selectedValues.add("Business & Finance");
         if (sportbox.isSelected()) selectedValues.add("Sports");
-        if (technologybox.isSelected()) selectedValues.add("Technology ");
+        if (technologybox.isSelected()) selectedValues.add("Technology");
         if (worldnewsbox.isSelected()) selectedValues.add("World News");
         if (entertainmentbox.isSelected()) selectedValues.add("Entertainment");
         if (healthbox.isSelected()) selectedValues.add("Health & Science");
