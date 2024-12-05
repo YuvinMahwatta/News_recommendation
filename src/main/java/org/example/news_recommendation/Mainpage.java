@@ -1,9 +1,7 @@
 package org.example.news_recommendation;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import javafx.beans.property.SimpleStringProperty;
@@ -21,172 +19,72 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.bson.Document;
-import javafx.scene.web.WebView;
-import javafx.scene.web.WebEngine;
+import org.example.news_recommendation.Database.DatabaseConnector;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Mainpage implements Initializable {
+    @FXML private Label categoriesuser;
+    @FXML private CheckBox editbuisnessbox;
+    @FXML private CheckBox editentertainmentbox;
+    @FXML private CheckBox edithealthbox;
+    @FXML private CheckBox editsportbox;
+    @FXML private CheckBox edittechnologybox;
+    @FXML private CheckBox editworldnewsbox;
+    @FXML private Label mainuserage;
+    @FXML private Label mainuseremail;
+    @FXML private Label mainusername;
+    @FXML private Button recommendedbtn;
+    @FXML private TextField usercurrentpwedit;
+    @FXML private TextField usereditage;
+    @FXML private Button usereditbckbtn;
+    @FXML private Button usereditbtn;
+    @FXML private TextField usereditemail;
+    @FXML private TextField usereditname;
+    @FXML private Pane usereditpane;
+    @FXML private Button userhomepagebtn;
+    @FXML private Pane userhomepagepane;
+    @FXML private Button userlogoutbtn;
+    @FXML private TextField usernewpwedit;
+    @FXML private Button userprofilebckbtn;
+    @FXML private Pane userprofilepane;
+    @FXML private Button userrecommendbckbtn;
+    @FXML private Pane userrecommendedpane;
+    @FXML private Button usersavebtn;
+    @FXML private Button yourprofilebtn;
+    @FXML private Button allarticlesbckbtn;
+    @FXML private Button allarticlesbtn;
+    @FXML private Pane allarticlespane;
+    @FXML private TableView<Document> allarticlestable;
+    @FXML private TableColumn<Document, String> articlestitle;
+    @FXML private TableView<Document> recommendedtable;
+    @FXML private TableColumn<Document, String> rectitle;
+    @FXML private TableColumn<Document, String> savcategory;
+    @FXML private Button savedarticlesbtn;
+    @FXML private Pane savedarticlespane;
+    @FXML private TableView<Document> savedarticlestable;
+    @FXML private TableColumn<Document, String> savtitle;
+    @FXML private TableColumn<Document, String> reccategory;
 
-    // FXML components for displaying user details
-    @FXML
-    private Label categoriesuser;
+    private MongoDatabase database;
+    static String currentUsername;
 
-    @FXML
-    private CheckBox editbuisnessbox;
-
-    @FXML
-    private CheckBox editentertainmentbox;
-
-    @FXML
-    private CheckBox edithealthbox;
-
-    @FXML
-    private CheckBox editsportbox;
-
-    @FXML
-    private CheckBox edittechnologybox;
-
-    @FXML
-    private CheckBox editworldnewsbox;
-
-    @FXML
-    private Label mainuserage;
-
-    @FXML
-    private Label mainuseremail;
-
-    @FXML
-    private Label mainusername;
-
-    @FXML
-    private Button recommendedbtn;
-
-    @FXML
-    private TextField usercurrentpwedit;
-
-
-    @FXML
-    private TextField usereditage;
-
-    @FXML
-    private Button usereditbckbtn;
-
-    @FXML
-    private Button usereditbtn;
-
-    @FXML
-    private TextField usereditemail;
-
-    @FXML
-    private TextField usereditname;
-
-    @FXML
-    private Pane usereditpane;
-
-    @FXML
-    private Button userhomepagebtn;
-
-    @FXML
-    private Pane userhomepagepane;
-
-    @FXML
-    private Button userlogoutbtn;
-
-    @FXML
-    private TextField usernewpwedit;
-
-    @FXML
-    private Button userprofilebckbtn;
-
-    @FXML
-    private Pane userprofilepane;
-
-    @FXML
-    private Button userrecommendbckbtn;
-
-    @FXML
-    private Pane userrecommendedpane;
-
-    @FXML
-    private Button usersavebtn;
-
-    @FXML
-    private Button yourprofilebtn;
-
-    @FXML
-    private Button allarticlesbckbtn;
-
-    @FXML
-    private Button allarticlesbtn;
-
-    @FXML
-    private Pane allarticlespane;
-
-    @FXML
-    private TableView<Document> allarticlestable;
-
-    @FXML
-    private TableColumn<Document, String> articlestitle;
-
-    @FXML
-    private TableView<Document> recommendedtable;
-
-    @FXML
-    private TableColumn<Document, String> rectitle;
-
-    @FXML
-    private TableColumn<Document, String> savcategory;
-
-    @FXML
-    private Button savedarticlesbtn;
-
-    @FXML
-    private Pane savedarticlespane;
-
-    @FXML
-    private TableView<Document> savedarticlestable;
-
-    @FXML
-    private TableColumn<Document, String> savtitle;
-
-    @FXML
-    private TableColumn<Document, String> reccategory;
-
-
-
-
+    public Mainpage() {
+        // Get the database instance from DatabaseConnector
+        this.database = DatabaseConnector.getDatabase();
+        this.currentUsername = HelloController.currentUsername;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        mongoClient = MongoClients.create("mongodb://localhost:27017");
         loadUserProfile();
         loadarticles2();
         Recommended();
         saved();
-
     }
 
-
-    // MongoDB connection setup
-    private MongoDatabase database;
-
-    private MongoClient mongoClient;
-
-
-    public Mainpage() {
-        // Connect to MongoDB (Make sure MongoDB is running)
-        this.database = MongoClients.create("mongodb://localhost:27017").getDatabase("News_recommendation_system");
-    }
-
-    // Method to fetch user data by username from MongoDB
     private Optional<Document> getUserByUsername(String username) {
         MongoCollection<Document> collection = database.getCollection("users");
         Document query = new Document("username", username);
@@ -194,31 +92,14 @@ public class Mainpage implements Initializable {
         return Optional.ofNullable(userDoc); // Return the user document (or empty if not found)
     }
 
-    private MongoDatabase getDatabase() {
-        try {
-            MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
-            return mongoClient.getDatabase("News_recommendation_system");
-        } catch (Exception e) {
-            System.err.println("Failed to connect to MongoDB: " + e.getMessage());
-            return null;
-        }
-    }
-    static String currentUsername = HelloController.currentUsername;
-
-    // Method to load and display user profile details in the labels
     private void loadUserProfile() {
-
-        MongoDatabase database = getDatabase();
         MongoCollection<Document> collection = database.getCollection("User_full_details_table");
-
         Document query = new Document("username", currentUsername);
         Document userDocument = collection.find(query).first();
-
         if (userDocument != null) {
             mainusername.setText(userDocument.getString("fullname"));
             mainuserage.setText(String.valueOf(userDocument.getInteger("age")));
             mainuseremail.setText(userDocument.getString("email"));
-
             List<String> preferences = (List<String>) userDocument.get("interests");
             if (preferences != null) {
                 categoriesuser.setText(String.join(", ", preferences));
@@ -234,7 +115,7 @@ public class Mainpage implements Initializable {
     }
 
     public static void setCurrentUsername(String username) {
-
+        currentUsername = username;
     }
 
     @FXML
@@ -271,8 +152,6 @@ public class Mainpage implements Initializable {
         if (event.getSource() == savedarticlesbtn) {
             savedarticlespane.toFront();
         }
-
-
     }
 
     @FXML
@@ -281,34 +160,27 @@ public class Mainpage implements Initializable {
         alert.setTitle("Log-Out");
         alert.setHeaderText("Are you sure you want to Log-Out?");
         Optional<ButtonType> output = alert.showAndWait();
-
         if (output.isPresent() && output.get() == ButtonType.OK) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
             Parent signUpRoot = loader.load();
-
             Stage stage = (Stage) userlogoutbtn.getScene().getWindow();
             stage.setScene(new Scene(signUpRoot));
             stage.show();
         }
     }
 
-    String username = HelloController.currentUsername;
-
     private void updatepoints(String category) {
         MongoCollection<Document> Articlepointscollection = database.getCollection("Article_Points");
-
         Articlepointscollection.updateOne(
-                Filters.eq("username", HelloController.currentUsername),
-                Updates.inc(category,2)
+                Filters.eq("username", currentUsername),
+                Updates.inc(category, 2)
         );
-
     }
 
     private boolean validateLogin(String username, String password) {
-        MongoDatabase database = mongoClient.getDatabase("News_recommendation_system");
         MongoCollection<Document> userCollection = database.getCollection("User_full_details_table");
         Document userDoc = userCollection.find(new Document("username", username).append("password", password)).first();
-        return userDoc!=null;
+        return userDoc != null;
     }
 
     @FXML
@@ -316,18 +188,15 @@ public class Mainpage implements Initializable {
         String fullName = usereditname.getText().trim();
         String currentpass = usercurrentpwedit.getText().trim();
         String password = usernewpwedit.getText().trim();
-
-        if (!validateLogin(username, currentpass)) {
+        if (!validateLogin(currentUsername, currentpass)) {
             showAlert(Alert.AlertType.ERROR, "Error", "Incorrect current password!");
             return;
         }
-
         // Validate the inputs
         if (fullName.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Invalid Input", "Name cannot be empty.");
             return;
         }
-
         String ageText = usereditage.getText().trim();
         int age;
         try {
@@ -340,13 +209,11 @@ public class Mainpage implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Invalid Input", "Age must be a valid number.");
             return;
         }
-
         String email = usereditemail.getText().trim();
         if (!email.matches("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) { // Validate email format
             showAlert(Alert.AlertType.ERROR, "Invalid Input", "Enter a valid email address.");
             return;
         }
-
         // Collect preferences
         List<String> updatedPreferences = new ArrayList<>();
         if (editbuisnessbox.isSelected()) updatedPreferences.add("Business & Finance");
@@ -355,35 +222,28 @@ public class Mainpage implements Initializable {
         if (editsportbox.isSelected()) updatedPreferences.add("Sports");
         if (edittechnologybox.isSelected()) updatedPreferences.add("Technology");
         if (editworldnewsbox.isSelected()) updatedPreferences.add("World News");
-
         if (updatedPreferences.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Invalid Input", "At least one preference must be selected.");
             return;
         }
-
         // Confirm changes with the user
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("Confirmation");
         confirmationAlert.setHeaderText("Are you sure you want to update your information?");
         Optional<ButtonType> result = confirmationAlert.showAndWait();
-
         if (result.isPresent() && result.get() == ButtonType.OK) {
             // Update the user document in MongoDB
             try {
                 MongoCollection<Document> collection = database.getCollection("User_full_details_table");
-
                 // Find the original preferences
                 Document query = new Document("username", currentUsername);
                 Document userDocument = collection.find(query).first();
                 List<String> originalPreferences = (List<String>) userDocument.get("interests");
-
                 // Calculate newly selected and deselected categories
                 List<String> newlySelected = new ArrayList<>(updatedPreferences);
                 newlySelected.removeAll(originalPreferences);
-
                 List<String> deselected = new ArrayList<>(originalPreferences);
                 deselected.removeAll(updatedPreferences);
-
                 // Update points for newly selected and deselected categories
                 MongoCollection<Document> Articlepointscollection = database.getCollection("Article_Points");
                 for (String category : newlySelected) {
@@ -398,7 +258,6 @@ public class Mainpage implements Initializable {
                             Updates.inc(category, -10)
                     );
                 }
-
                 // Update user details
                 Document updateFields = new Document();
                 updateFields.put("fullname", fullName);
@@ -406,18 +265,13 @@ public class Mainpage implements Initializable {
                 updateFields.put("email", email);
                 updateFields.put("password", password);
                 updateFields.put("interests", updatedPreferences);
-
                 Document updateQuery = new Document("$set", updateFields);
                 collection.updateOne(query, updateQuery);
-
                 // Show success message
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Information updated successfully.");
-
-                currentUsername = username;
                 // Reload the profile pane with updated data
                 loadUserProfile();
                 userprofilepane.toFront();
-
             } catch (Exception e) {
                 showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to update information in the database.");
             }
@@ -432,13 +286,11 @@ public class Mainpage implements Initializable {
         MongoCollection<Document> collection = database.getCollection("User_full_details_table");
         Document query = new Document("username", currentUsername);
         Document userDocument = collection.find(query).first();
-
         if (userDocument != null) {
             // Populate text fields with user details
             usereditname.setText(userDocument.getString("fullname"));
             usereditemail.setText(userDocument.getString("email"));
             usereditage.setText(String.valueOf(userDocument.getInteger("age")));
-
             // Reset all checkboxes
             editbuisnessbox.setSelected(false);
             editentertainmentbox.setSelected(false);
@@ -446,7 +298,6 @@ public class Mainpage implements Initializable {
             editsportbox.setSelected(false);
             edittechnologybox.setSelected(false);
             editworldnewsbox.setSelected(false);
-
             // Set checkboxes based on the user's interests
             List<String> preferences = (List<String>) userDocument.get("interests");
             if (preferences != null) {
@@ -478,7 +329,6 @@ public class Mainpage implements Initializable {
         }
     }
 
-
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -487,14 +337,10 @@ public class Mainpage implements Initializable {
         alert.showAndWait();
     }
 
-    private void loadarticles2(){
-
-        MongoDatabase database1 = mongoClient.getDatabase("News_recommendation_system");
-        MongoCollection<Document> collection = database1.getCollection("News_Articles");
-
+    private void loadarticles2() {
+        MongoCollection<Document> collection = database.getCollection("News_Articles");
         List<Document> articles2 = collection.find().into(new ArrayList<>());
         ObservableList<Document> data2 = FXCollections.observableArrayList(articles2);
-
         articlestitle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getString("title")));
         allarticlestable.setItems(data2);
     }
@@ -506,26 +352,20 @@ public class Mainpage implements Initializable {
             String title = selectedArticle.getString("title");
             String content = selectedArticle.getString("content");
             String category = selectedArticle.getString("category");
-
             // Load the WebView FXML
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/news_recommendation/Web.fxml"));
                 Parent root = loader.load();
-
                 // Get the controller of the WebView FXML
                 WebViewController controller = loader.getController();
-
-
                 // Pass the content to the WebViewController
                 controller.displayContent(title, content, category);
                 updatepoints(category);
-
                 // Create and show the stage
                 Stage stage = new Stage();
                 stage.setTitle("Article View");
                 stage.setScene(new Scene(root));
                 stage.show();
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -543,21 +383,16 @@ public class Mainpage implements Initializable {
 
     @FXML
     public void Recommended() {
-        MongoDatabase database = mongoClient.getDatabase("News_recommendation_system");
         MongoCollection<Document> NewsArticleCollection = database.getCollection("News_Articles");
         MongoCollection<Document> Articlepointscollection = database.getCollection("Article_Points");
-
         // Get the current logged-in user's username
         String currentUsername = HelloController.currentUsername;
-
         // Retrieve the user's points from the userArticlesCollection
         Document Retrievepoints = Articlepointscollection.find(Filters.eq("username", currentUsername)).first();
-
         if (Retrievepoints == null) {
             System.out.println("User data not found.");
             return;
         }
-
         // Get the categories with points greater than 5
         List<String> preferredCategories = new ArrayList<>();
         for (String category : Retrievepoints.keySet()) {
@@ -568,26 +403,21 @@ public class Mainpage implements Initializable {
                 }
             }
         }
-
         if (preferredCategories.isEmpty()) {
             System.out.println("No preferred categories with points > 5.");
             return;
         }
-
         // Query the ArticleCollection for articles in the preferred categories
         List<Document> articles = NewsArticleCollection.find(Filters.in("category", preferredCategories))
                 .into(new ArrayList<>());
-
         // Sort the articles based on the category points in descending order
         articles.sort((a1, a2) -> {
             int points1 = getCategoryPoints(currentUsername, a1.getString("category"), Articlepointscollection);
             int points2 = getCategoryPoints(currentUsername, a2.getString("category"), Articlepointscollection);
             return Integer.compare(points2, points1); // Sort in descending order
         });
-
         // Bind the filtered and sorted articles to the TableView
         ObservableList<Document> articleData = FXCollections.observableArrayList(articles);
-
         reccategory.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getString("category")));
         rectitle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getString("title")));
         recommendedtable.setItems(articleData);
@@ -596,29 +426,24 @@ public class Mainpage implements Initializable {
     @FXML
     private void saved() {
         // Access the necessary collections
-        MongoDatabase database = mongoClient.getDatabase("News_recommendation_system");
         MongoCollection<Document> NewsArticleCollection = database.getCollection("News_Articles");
         MongoCollection<Document> SavedarticlesCollection = database.getCollection("Saved_Articles");
-
         // Find the saved articles for the logged-in user
         Document userSaved = SavedarticlesCollection.find(Filters.eq("username", currentUsername)).first();
-
         if (userSaved != null && userSaved.containsKey("saved")) {
             // Retrieve the saved article titles from the "saved" field
             List<String> savedTitles = userSaved.getList("saved", String.class);
-
             if (savedTitles != null && !savedTitles.isEmpty()) {
                 // Fetch article details from the News_Articles collection using the saved titles
                 List<Document> savedArticles = NewsArticleCollection.find(Filters.in("title", savedTitles)).into(new ArrayList<>());
-
                 // Bind the fetched data to the TableView
                 ObservableList<Document> userData = FXCollections.observableArrayList(savedArticles);
-
                 savcategory.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getString("category")));
                 savtitle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getString("title")));
-
                 savedarticlestable.setItems(userData);
             } else {
+                // No saved titles found for the user
+                savedarticlestable.setItems(FXCollections.observableArrayList());
                 // No saved titles found for the user
                 savedarticlestable.setItems(FXCollections.observableArrayList());
                 System.out.println("No saved articles found for user: " + currentUsername);
@@ -630,7 +455,6 @@ public class Mainpage implements Initializable {
         }
     }
 
-
     @FXML
     private void ViewRecommendedArticles() {
         Document selectedArticle = recommendedtable.getSelectionModel().getSelectedItem();
@@ -638,54 +462,39 @@ public class Mainpage implements Initializable {
             String title = selectedArticle.getString("title");
             String content = selectedArticle.getString("content");
             String category = selectedArticle.getString("category"); // Assuming the article has a "category" field
-
             // Load the WebView FXML
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Web.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/news_recommendation/Web.fxml"));
                 Parent root = loader.load();
-
                 // Get the controller of the WebView FXML
                 WebViewController controller = loader.getController();
-
                 // Pass the content and category to the Webdisplay controller
                 controller.displayContent(title, content, category);
                 updatepoints(category);
-
                 // Create the stage for the new window
                 Stage stage = new Stage();
                 stage.initStyle(StageStyle.UNDECORATED); // Remove default window borders
-
                 // Variables to store mouse coordinates for dragging
                 final double[] xOffset = {0};
                 final double[] yOffset = {0};
-
                 // Add mouse event handlers to enable dragging
                 root.setOnMousePressed(event -> {
                     xOffset[0] = event.getSceneX();
                     yOffset[0] = event.getSceneY();
                 });
-
                 root.setOnMouseDragged(event -> {
                     stage.setX(event.getScreenX() - xOffset[0]);
                     stage.setY(event.getScreenY() - yOffset[0]);
                 });
-
                 // Create a scene with the loaded FXML content and set it on the stage
                 Scene scene = new Scene(root);
                 scene.setFill(Color.TRANSPARENT); // Allow transparent styling
                 stage.setScene(scene);
-
                 // Display the stage
                 stage.show();
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-
-
-
-
-
 }
